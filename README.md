@@ -336,15 +336,44 @@ Unsupported languages fall back to line-level text search (same as ripgrep).
 
 ## Daemon mode
 
-For persistent indexing across multiple queries (used by agent integrations):
+For agent sessions with 50+ queries, the daemon keeps the index in memory for sub-millisecond searches:
 
 ```bash
-# Start daemon
-hypergrep-daemon /path/to/project
+# Start in background (auto-stops after 30 min idle)
+hypergrep-daemon --background /path/to/project
 
-# Queries go through Unix socket -- sub-millisecond after first index build
-# Index updates incrementally via filesystem watching
+# Check status (shows PID, memory, socket path)
+hypergrep-daemon --status /path/to/project
+
+# Stop manually
+hypergrep-daemon --stop /path/to/project
 ```
+
+**Safety features:**
+- **Auto-stop**: Shuts down after 30 minutes of no queries (configurable: `--idle-timeout 3600`)
+- **Memory limit**: Hard cap at 500 MB -- shuts down with a warning if exceeded
+- **Memory reporting**: `--status` shows live RSS so you always know what it's using
+- **PID file**: Prevents duplicate daemons for the same project
+- **Clean shutdown**: Ctrl+C or `--stop` removes socket + PID file
+- **Socket permissions**: Owner-only (0600) -- other users can't query your code
+
+```
+$ hypergrep-daemon --status .
+Running
+  PID:    18067
+  Socket: /tmp/hypergrep-f983e88f.sock
+  Memory: 8.5 MB
+  Root:   /Users/you/project
+```
+
+**When to use the daemon vs CLI:**
+
+| Scenario | Use |
+|----------|-----|
+| Quick one-off search | `hypergrep "pattern" src/` (CLI) |
+| AI agent session (50+ queries) | `hypergrep-daemon --background src/` |
+| CI/CD pipeline | `hypergrep "pattern" src/` (CLI, no daemon) |
+| Long coding session | `hypergrep-daemon --background --idle-timeout 3600 src/` |
 
 ## Architecture
 

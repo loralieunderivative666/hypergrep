@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-03-29
+
+### Changed
+- Daemon: auto-stops after 30 min idle (configurable `--idle-timeout`)
+- Daemon: hard memory cap at 500 MB with automatic shutdown
+- Daemon: `--status` shows PID, memory usage, socket path
+- Daemon: `--stop` cleanly kills running daemon
+- Daemon: `--background` runs detached (no terminal needed)
+- Daemon: PID file prevents duplicate instances per project
+- Daemon: socket permissions set to owner-only (0600)
+- Daemon: clean shutdown on Ctrl+C (removes PID + socket)
+- Daemon: logs memory + idle status every 5 minutes
+- Incremental cache: changing 1 file no longer rebuilds entire index (33ms vs 1,024ms)
+- Incremental cache: detects and indexes new files not in cache
+
+### Fixed
+- Cache invalidation: stale files now incrementally updated instead of full rebuild
+
 ## [0.2.0] - 2026-03-29
 
 ### Changed
