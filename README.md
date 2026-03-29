@@ -103,6 +103,25 @@ hypergrep --version
 hypergrep --help
 ```
 
+## AI agent setup
+
+Tell your AI tools to use hypergrep. Run this in any project:
+
+```bash
+hypergrep-setup.sh /path/to/your/project
+```
+
+This creates config files for Claude Code, Cursor, Copilot, and Windsurf. Your agents will automatically use hypergrep instead of grep.
+
+**Manual setup** -- copy one file for your tool:
+
+| Tool | File to create | Template |
+|------|---------------|----------|
+| Claude Code | `CLAUDE.md` | [agent-config/CLAUDE.md](agent-config/CLAUDE.md) |
+| Cursor | `.cursorrules` | [agent-config/.cursorrules](agent-config/.cursorrules) |
+| GitHub Copilot | `.github/copilot-instructions.md` | [agent-config/.github/copilot-instructions.md](agent-config/.github/copilot-instructions.md) |
+| Windsurf | `.windsurfrules` | [agent-config/.windsurfrules](agent-config/.windsurfrules) |
+
 ## Quick start
 
 ```bash
