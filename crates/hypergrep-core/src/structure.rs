@@ -60,6 +60,20 @@ pub enum Lang {
     Java,
     C,
     Cpp,
+    Ruby,
+    Php,
+    Swift,
+    CSharp,
+    Scala,
+    Lua,
+    Zig,
+    Bash,
+    Html,
+    Css,
+    Json,
+    Toml,
+    Yaml,
+    Hcl,
 }
 
 impl Lang {
@@ -75,6 +89,20 @@ impl Lang {
             "java" => Some(Lang::Java),
             "c" | "h" => Some(Lang::C),
             "cpp" | "cc" | "cxx" | "hpp" | "hh" | "hxx" => Some(Lang::Cpp),
+            "rb" | "rake" | "gemspec" => Some(Lang::Ruby),
+            "php" | "phtml" => Some(Lang::Php),
+            "swift" => Some(Lang::Swift),
+            "cs" => Some(Lang::CSharp),
+            "scala" | "sc" => Some(Lang::Scala),
+            "lua" => Some(Lang::Lua),
+            "zig" => Some(Lang::Zig),
+            "sh" | "bash" | "zsh" => Some(Lang::Bash),
+            "html" | "htm" => Some(Lang::Html),
+            "css" | "scss" | "sass" => Some(Lang::Css),
+            "json" | "jsonc" => Some(Lang::Json),
+            "toml" => Some(Lang::Toml),
+            "yaml" | "yml" => Some(Lang::Yaml),
+            "tf" | "hcl" => Some(Lang::Hcl),
             _ => None,
         }
     }
@@ -90,6 +118,20 @@ impl Lang {
             Lang::Java => tree_sitter_java::LANGUAGE.into(),
             Lang::C => tree_sitter_c::LANGUAGE.into(),
             Lang::Cpp => tree_sitter_cpp::LANGUAGE.into(),
+            Lang::Ruby => tree_sitter_ruby::LANGUAGE.into(),
+            Lang::Php => tree_sitter_php::LANGUAGE_PHP.into(),
+            Lang::Swift => tree_sitter_swift::LANGUAGE.into(),
+            Lang::CSharp => tree_sitter_c_sharp::LANGUAGE.into(),
+            Lang::Scala => tree_sitter_scala::LANGUAGE.into(),
+            Lang::Lua => tree_sitter_lua::LANGUAGE.into(),
+            Lang::Zig => tree_sitter_zig::LANGUAGE.into(),
+            Lang::Bash => tree_sitter_bash::LANGUAGE.into(),
+            Lang::Html => tree_sitter_html::LANGUAGE.into(),
+            Lang::Css => tree_sitter_css::LANGUAGE.into(),
+            Lang::Json => tree_sitter_json::LANGUAGE.into(),
+            Lang::Toml => tree_sitter_toml_ng::LANGUAGE.into(),
+            Lang::Yaml => tree_sitter_yaml::LANGUAGE.into(),
+            Lang::Hcl => tree_sitter_hcl::LANGUAGE.into(),
         }
     }
 
@@ -137,6 +179,69 @@ impl Lang {
                 ("class_specifier", SymbolKind::Class, "name"),
                 ("struct_specifier", SymbolKind::Struct, "name"),
                 ("enum_specifier", SymbolKind::Enum, "name"),
+            ],
+            Lang::Ruby => &[
+                ("method", SymbolKind::Method, "name"),
+                ("singleton_method", SymbolKind::Method, "name"),
+                ("class", SymbolKind::Class, "name"),
+                ("module", SymbolKind::Module, "name"),
+            ],
+            Lang::Php => &[
+                ("function_definition", SymbolKind::Function, "name"),
+                ("method_declaration", SymbolKind::Method, "name"),
+                ("class_declaration", SymbolKind::Class, "name"),
+                ("interface_declaration", SymbolKind::Interface, "name"),
+                ("trait_declaration", SymbolKind::Trait, "name"),
+                ("enum_declaration", SymbolKind::Enum, "name"),
+            ],
+            Lang::Swift => &[
+                ("function_declaration", SymbolKind::Function, "name"),
+                ("class_declaration", SymbolKind::Class, "name"),
+                ("struct_declaration", SymbolKind::Struct, "name"),
+                ("protocol_declaration", SymbolKind::Interface, "name"),
+                ("enum_declaration", SymbolKind::Enum, "name"),
+            ],
+            Lang::CSharp => &[
+                ("method_declaration", SymbolKind::Method, "name"),
+                ("class_declaration", SymbolKind::Class, "name"),
+                ("interface_declaration", SymbolKind::Interface, "name"),
+                ("struct_declaration", SymbolKind::Struct, "name"),
+                ("enum_declaration", SymbolKind::Enum, "name"),
+            ],
+            Lang::Scala => &[
+                ("function_definition", SymbolKind::Function, "name"),
+                ("class_definition", SymbolKind::Class, "name"),
+                ("object_definition", SymbolKind::Class, "name"),
+                ("trait_definition", SymbolKind::Trait, "name"),
+            ],
+            Lang::Lua => &[
+                ("function_declaration", SymbolKind::Function, "name"),
+                (
+                    "local_function_declaration_statement",
+                    SymbolKind::Function,
+                    "name",
+                ),
+            ],
+            Lang::Zig => &[("function_declaration", SymbolKind::Function, "name")],
+            Lang::Bash => &[("function_definition", SymbolKind::Function, "name")],
+            Lang::Html => &[
+                // HTML doesn't have functions/classes, but tags can be structural
+            ],
+            Lang::Css => &[
+                // CSS doesn't have functions, but rule_set could be structural
+            ],
+            Lang::Json => &[
+                // JSON is data, no code symbols
+            ],
+            Lang::Toml => &[
+                // TOML is config, no code symbols
+            ],
+            Lang::Yaml => &[
+                // YAML is config, no code symbols
+            ],
+            Lang::Hcl => &[
+                // Terraform blocks
+                ("block", SymbolKind::Function, ""),
             ],
         }
     }

@@ -316,6 +316,15 @@ fn call_expression_types(lang: Lang) -> Vec<&'static str> {
         Lang::Go => vec!["call_expression"],
         Lang::Java => vec!["method_invocation"],
         Lang::C | Lang::Cpp => vec!["call_expression"],
+        Lang::Ruby => vec!["call", "method_call"],
+        Lang::Php => vec!["function_call_expression", "method_call_expression"],
+        Lang::Swift => vec!["call_expression"],
+        Lang::CSharp => vec!["invocation_expression"],
+        Lang::Scala => vec!["call_expression"],
+        Lang::Lua => vec!["function_call"],
+        Lang::Zig => vec!["call_expression"],
+        Lang::Bash => vec!["command"],
+        Lang::Html | Lang::Css | Lang::Json | Lang::Toml | Lang::Yaml | Lang::Hcl => vec![],
     }
 }
 
@@ -400,6 +409,45 @@ fn extract_call_name(node: &tree_sitter::Node, source: &[u8], lang: Lang) -> Opt
                 None
             }
         }
+        Lang::Ruby | Lang::Swift | Lang::Scala | Lang::Lua | Lang::Zig => {
+            if let Some(func) = node
+                .child_by_field_name("function")
+                .or_else(|| node.child_by_field_name("method"))
+                .or_else(|| node.child_by_field_name("name"))
+            {
+                let text = node_text(func, source);
+                Some(text.rsplit('.').next()?.to_string())
+            } else {
+                None
+            }
+        }
+        Lang::Php => {
+            if let Some(func) = node
+                .child_by_field_name("function")
+                .or_else(|| node.child_by_field_name("name"))
+            {
+                let text = node_text(func, source);
+                Some(text.rsplit("\\").next()?.to_string())
+            } else {
+                None
+            }
+        }
+        Lang::CSharp => {
+            if let Some(func) = node
+                .child_by_field_name("function")
+                .or_else(|| node.child_by_field_name("name"))
+            {
+                let text = node_text(func, source);
+                Some(text.rsplit('.').next()?.to_string())
+            } else {
+                None
+            }
+        }
+        Lang::Bash => {
+            // command node: first child is the command name
+            node.child(0).map(|n| node_text(n, source))
+        }
+        Lang::Html | Lang::Css | Lang::Json | Lang::Toml | Lang::Yaml | Lang::Hcl => None,
     }
 }
 
