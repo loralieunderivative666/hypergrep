@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-03-29
+
+### Added
+- 16 languages supported (was 8): Ruby, PHP, Swift, C#, Scala, Lua, Zig, Bash
+- Tree-sitter parsing for HTML, CSS, JSON, TOML, YAML, HCL (no code symbols, but indexed)
+- Agent config templates for Claude Code, Cursor, Copilot, Windsurf (`agent-config/`)
+- `hypergrep-setup.sh` to auto-configure AI agents for any project
+- Uninstall instructions in README
+- Incremental cache updates: 1 changed file = 33ms update (was full rebuild)
+- New files detected and indexed automatically without full rebuild
+
+### Changed
+- README: added "Why not just ripgrep?" comparison, status table, performance numbers, limitations
+- Agent configs: honest guidance on when to use rg vs hypergrep
+- Binary size: 29 MB (was 11 MB, due to 16 grammars)
+
+### Removed
+- Kotlin structural support (grammar incompatible with tree-sitter 0.24, falls back to text search)
+
 ## [0.3.0] - 2026-03-29
 
 ### Changed
