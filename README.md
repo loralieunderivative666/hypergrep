@@ -88,6 +88,14 @@ cp target/release/hypergrep ~/.cargo/bin/   # or /usr/local/bin/
 
 Requires Rust 1.75+ and a C compiler (for tree-sitter grammars).
 
+### Update
+
+Same command as install -- always gets the latest release:
+
+```bash
+curl -sSfL https://github.com/marjoballabani/hypergrep/releases/latest/download/hypergrep-installer.sh | sh
+```
+
 ### Verify
 
 ```bash
